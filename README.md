@@ -1,6 +1,7 @@
 # svelte-knob
 
-A highly customizable and accessibleknob component for Svelte applications.
+A highly customizable and accessible knob component for Svelte applications.
+
 Ported from [rc-knob](https://github.com/vallsv/rc-knob) originally created by [eskimoblood](https://github.com/eskimoblood) and updated by [vallsv](https://github.com/vallsv).
 
 ## Overview
