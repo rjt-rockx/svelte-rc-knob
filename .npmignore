@@ -1,0 +1,30 @@
+# Development files
+.git/
+.svelte-kit/
+.wrangler/
+node_modules/
+src/
+src/routes/
+e2e/
+static/
+
+# Config files
+.prettierrc
+.prettierignore
+.markdownlint.json
+.gitignore
+.gitattributes
+.cursorrules
+svelte.config.js
+vite.config.ts
+tsconfig.json
+playwright.config.ts
+eslint.config.js
+bun.lock
+
+# Tests
+**/*.test.*
+**/*.spec.*
+
+# Documentation and misc
+TODO.md

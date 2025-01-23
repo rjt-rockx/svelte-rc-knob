@@ -1,4 +1,4 @@
-# svelte-knob
+# svelte-rc-knob
 
 A highly customizable and accessible knob component for Svelte applications.
 

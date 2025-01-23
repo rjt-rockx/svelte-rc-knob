@@ -1,6 +1,24 @@
 {
-	"name": "svelte-knob",
+	"name": "svelte-rc-knob",
 	"version": "0.0.1",
+	"description": "A highly customizable and accessible knob component for Svelte applications.",
+	"keywords": [
+		"svelte",
+		"component",
+		"knob",
+		"dial",
+		"ui",
+		"control",
+		"input"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/rjt-rockx/svelte-rc-knob"
+	},
+	"bugs": {
+		"url": "https://github.com/rjt-rockx/svelte-rc-knob/issues"
+	},
+	"homepage": "https://github.com/rjt-rockx/svelte-rc-knob#readme",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run prepack",
@@ -13,13 +31,16 @@
 		"test:e2e": "playwright test",
 		"test": "npm run test:e2e"
 	},
+	"license": "MIT",
+	"author": "Rajath R <rjt.rockx@gmail.com>",
 	"files": [
 		"dist",
 		"!dist/**/*.test.*",
-		"!dist/**/*.spec.*"
+		"!dist/**/*.spec.*",
+		"!dist/**/*.map"
 	],
 	"sideEffects": [
-		"**/*.css"
+		"./dist/**/*.css"
 	],
 	"svelte": "./dist/index.js",
 	"types": "./dist/index.d.ts",
