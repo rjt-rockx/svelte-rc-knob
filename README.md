@@ -152,15 +152,15 @@ Renders an arc showing the current value of the knob. Uses the `<Range>` compone
 
 #### Props
 
-| Prop          | Type   | Default        | Description                                                            |
-| ------------- | ------ | -------------- | ---------------------------------------------------------------------- |
-| `arcWidth`    | number | Required       | Width of the arc in pixels                                             |
-| `percentage`  | number | context value  | Current percentage (0-1) to display                                    |
-| `color`       | string | 'currentColor' | Color of the value arc                                                 |
-| `background`  | string | undefined      | Color of the background arc. If not set, no background arc is rendered |
-| `radius`      | number | knob size / 2  | Outer radius of the arc in pixels                                      |
-| `class`       | string | undefined      | CSS class for the value arc                                            |
-| `activeClass` | string | undefined      | CSS class for the background arc                                       |
+| Prop          | Type   | Default        | Required | Description                                                            |
+| ------------- | ------ | -------------- | -------- | ---------------------------------------------------------------------- |
+| `arcWidth`    | number |                | Yes      | Width of the arc in pixels                                             |
+| `percentage`  | number | context value  | No       | Current percentage (0-1) to display                                    |
+| `color`       | string | 'currentColor' | No       | Color of the value arc                                                 |
+| `background`  | string | undefined      | No       | Color of the background arc. If not set, no background arc is rendered |
+| `radius`      | number | context size/2 | No       | Outer radius of the arc in pixels                                      |
+| `class`       | string | undefined      | No       | CSS class for the value arc                                            |
+| `activeClass` | string | undefined      | No       | CSS class for the background arc                                       |
 
 ### `<Range>`
 
@@ -263,7 +263,7 @@ Displays text labels around the knob at specified angles. Labels are positioned 
 | `label`      | string |                | Yes      | Text to display                  |
 | `radius`     | number |                | Yes      | Distance from center             |
 | `percentage` | number |                | Yes      | Position around the circle (0-1) |
-| `center`     | number | size / 2       | No       | Center point                     |
+| `center`     | number | context size/2 | No       | Center point                     |
 | `color`      | string | 'currentColor' | No       | Text color                       |
 | `class`      | string | ''             | No       | CSS class for the text element   |
 | `userSelect` | string | 'none'         | No       | CSS user-select property value   |
@@ -274,17 +274,17 @@ Renders a radial scale with configurable tick marks around the knob. Supports ci
 
 #### Props
 
-| Prop          | Type   | Default        | Required | Description                                |
-| ------------- | ------ | -------------- | -------- | ------------------------------------------ |
-| `tickWidth`   | number |                | Yes      | Width of each tick                         |
-| `tickHeight`  | number |                | Yes      | Height of each tick (for rect type)        |
-| `type`        | string | 'rect'         | No       | Shape type: 'rect' or 'circle'             |
-| `radius`      | number | size / 2       | No       | Distance from center to ticks              |
-| `color`       | string | 'currentColor' | No       | Default tick color                         |
-| `activeColor` | string | color          | No       | Color for active tick                      |
-| `class`       | string | ''             | No       | Default tick class                         |
-| `activeClass` | string | class          | No       | Class for active tick                      |
-| `steps`       | number | 10             | No       | Number of ticks (falls back to knob steps) |
+| Prop          | Type   | Default                         | Required | Description                         |
+| ------------- | ------ | ------------------------------- | -------- | ----------------------------------- |
+| `tickWidth`   | number |                                 | Yes      | Width of each tick                  |
+| `tickHeight`  | number |                                 | Yes      | Height of each tick (for rect type) |
+| `type`        | string | 'rect'                          | No       | Shape type: 'rect' or 'circle'      |
+| `radius`      | number | context size/2                  | No       | Distance from center to ticks       |
+| `color`       | string | 'currentColor'                  | No       | Default tick color                  |
+| `activeColor` | string | color                           | No       | Color for active tick               |
+| `class`       | string | ''                              | No       | Default tick class                  |
+| `activeClass` | string | class                           | No       | Class for active tick               |
+| `steps`       | number | context steps → prop steps → 10 | No       | Number of ticks                     |
 
 The scale can be customized using a snippet that receives:
 
@@ -338,11 +338,12 @@ Displays the current value of the knob as text. Supports decimal places formatti
 | Prop           | Type   | Default        | Required | Description                    |
 | -------------- | ------ | -------------- | -------- | ------------------------------ |
 | `value`        | number | context value  | No       | Value to display               |
-| `center`       | number | size / 2       | No       | Center point                   |
-| `radius`       | number | size / 2       | No       | Distance from center           |
+| `radius`       | number | context size/2 | No       | Distance from center           |
 | `decimalPlace` | number | 0              | No       | Number of decimal places       |
 | `marginBottom` | number | 0              | No       | Bottom margin in pixels        |
 | `color`        | string | 'currentColor' | No       | Text color                     |
 | `class`        | string | ''             | No       | CSS class for the text element |
 
 The component automatically handles negative zero values by removing the negative sign.
+
+Note: All components require being children of a `<Knob>` component as they rely on its context for default values and state management.
