@@ -1,6 +1,6 @@
 {
 	"name": "svelte-rc-knob",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "A highly customizable and accessible knob component for Svelte applications.",
 	"keywords": [
 		"svelte",
