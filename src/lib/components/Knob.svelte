@@ -81,7 +81,7 @@ Events:
 	let {
 		min,
 		max,
-		value = null,
+		value = $bindable(null),
 		initialValue = value,
 		multiRotation = false,
 		angleOffset = 0,
