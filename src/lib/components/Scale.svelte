@@ -114,7 +114,7 @@ Tick Positioning:
 
 	const activeColor = $derived(props.activeColor ?? color);
 	const activeClassName = $derived(props.activeClass ?? className);
-	const steps = $derived(knobContext.config.steps ?? propSteps ?? 10);
+	const steps = $derived(propSteps ?? knobContext.config.steps ?? 10);
 	const percentage = $derived(knobContext.state.percentage);
 	const length = $derived(steps + (angleRange === 360 ? 0 : 1));
 	const stepSize = $derived(angleRange / steps);
