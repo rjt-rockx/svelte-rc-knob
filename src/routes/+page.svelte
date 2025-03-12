@@ -11,7 +11,8 @@
 	import Value from '$lib/components/Value.svelte';
 	import Label from '$lib/components/Label.svelte';
 	import Range from '$lib/components/Range.svelte';
-	import { onMount } from 'svelte';
+	import AsyncMotorSingle from './AsyncMotorSingle.svelte';
+	import AsyncMotorMulti from './AsyncMotorMulti.svelte';
 
 	/**
 	 * Props passed to custom scale tick snippets
@@ -54,65 +55,6 @@
 	};
 
 	let controlledValue = $state(33);
-
-	// Mock motor implementation
-	class MockMotor {
-		private target: number | null = null;
-		private position: number;
-		private velocity: number;
-		private interval!: number;
-		private onChange: (position: number) => void;
-
-		constructor(initialPosition: number, velocity: number, onChange: (position: number) => void) {
-			this.position = initialPosition;
-			this.velocity = velocity;
-			this.onChange = onChange;
-			this.startLoop();
-		}
-
-		private startLoop() {
-			this.interval = setInterval(() => {
-				if (this.target !== null) {
-					const diff = this.target - this.position;
-					const step = Math.min(Math.abs(diff), this.velocity) * Math.sign(diff);
-					this.position += step;
-					this.onChange(this.position);
-
-					if (Math.abs(diff) < 0.1) {
-						this.position = this.target;
-						this.target = null;
-					}
-				}
-			}, 1000) as unknown as number;
-		}
-
-		public setTarget(target: number) {
-			this.target = target;
-		}
-
-		public stop() {
-			clearInterval(this.interval);
-		}
-	}
-
-	let motorPosition = $state(45);
-	let motorTarget = $state<number | null>(null);
-	let motor: MockMotor;
-
-	onMount(() => {
-		motor = new MockMotor(45, 30, (pos) => {
-			motorPosition = pos;
-		});
-
-		return () => {
-			motor.stop();
-		};
-	});
-
-	function onMotorKnobChange(value: number) {
-		motorTarget = value;
-		motor?.setTarget(value);
-	}
 </script>
 
 <div class="examples">
@@ -322,44 +264,12 @@
 	</div>
 
 	<div class="example">
-		<span class="title">Async Motor Example</span>
-		<Knob
-			size={100}
-			angleOffset={0}
-			angleRange={360}
-			min={0}
-			max={360}
-			value={motorPosition}
-			onChange={onMotorKnobChange}
-		>
-			<circle r={45} cx={50} cy={50} fill="transparent" stroke="#ced4da" stroke-width={10} />
-			{#if motorTarget !== null}
-				<Range
-					percentageFrom={motorPosition / 360}
-					percentageTo={motorTarget / 360}
-					radius={50}
-					color="#ff9800"
-					arcWidth={10}
-				/>
-				<Pointer
-					percentage={motorTarget / 360}
-					width={10}
-					height={10}
-					radius={50}
-					type="circle"
-					color="#ff9800"
-				/>
-			{/if}
-			<Pointer
-				percentage={motorPosition / 360}
-				width={10}
-				height={10}
-				radius={50}
-				type="circle"
-				color="#000"
-			/>
-			<Value value={motorPosition} decimalPlace={2} marginBottom={60} />
-		</Knob>
+		<span class="title">Async Motor (Single Rotation)</span>
+		<AsyncMotorSingle />
+	</div>
+	<div class="example">
+		<span class="title">Async Motor (Multi-Rotation)</span>
+		<AsyncMotorMulti />
 	</div>
 </div>
 

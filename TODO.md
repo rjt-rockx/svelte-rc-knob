@@ -4,13 +4,7 @@
 
 ### Component Logic Extraction
 
-Current state: Most logic lives in component files (e.g., `Knob.svelte`, `Pointer.svelte`).
-
-- [ ] Move angle calculations to dedicated files:
-
-  - Create `src/lib/utils/angles.ts` for shared angle math
-  - Move from `utils.ts` and component files
-  - Example functions: `calculateAngleFromPercentage`, `normalizeAngle`
+Current state: Most logic has been extracted into dedicated files.
 
 - [ ] Extract pointer position logic:
 
@@ -87,7 +81,7 @@ Current state: State management in `stores/knob.svelte.ts`, updates in component
 
 ### Testing Setup
 
-Current state: No tests yet.
+Current state: No tests implemented yet.
 
 - [ ] Add basic test setup:
 

@@ -152,12 +152,14 @@ export function createKnobEventHandlers(
 	const handleStart = (e: PointerEvent | MouseEvent) => {
 		console.debug('[handleStart] Starting interaction:', e.type);
 		if ((e as PointerEvent).pointerType === 'mouse' && e.button !== 0) return;
+
 		if (config.readOnly) {
 			console.debug('[handleStart] Ignoring start - knob is readonly');
 			return;
 		}
 
-		const mousePosition = getMousePosition(e.currentTarget as HTMLElement, e);
+		const target = e.currentTarget as HTMLElement;
+		const mousePosition = getMousePosition(target, e);
 		const userConfig = getInteractiveConfig(mousePosition, e);
 		if (userConfig.readOnly) {
 			console.debug('[handleStart] Ignoring start - interactive hook returned readonly');
@@ -166,6 +168,23 @@ export function createKnobEventHandlers(
 
 		e.preventDefault();
 		e.stopPropagation();
+
+		// Setup global event tracking
+		if (window.PointerEvent) {
+			// Use pointer capture if available
+			const pointerEvent = e as PointerEvent;
+			target.setPointerCapture(pointerEvent.pointerId);
+			target.addEventListener('pointermove', handleMove);
+			target.addEventListener('pointerup', handleEnd);
+			target.addEventListener('pointercancel', handleCancel);
+		} else {
+			// Fallback to window event listeners for mouse events
+			window.addEventListener('mousemove', handleMove);
+			window.addEventListener('mouseup', handleEnd);
+		}
+
+		// Prevent context menu during drag
+		target.addEventListener('contextmenu', handleContextMenu);
 
 		console.debug('[handleStart] Processing start with angle:', mousePosition.mouseAngle);
 		knobState.handleStart(mousePosition.mouseAngle);
@@ -198,17 +217,61 @@ export function createKnobEventHandlers(
 	/**
 	 * Handles the end of a knob interaction
 	 */
-	const handleEnd = () => {
+	const handleEnd = (e?: PointerEvent | MouseEvent) => {
 		console.debug('[handleEnd] Ending interaction');
+
+		if (e) {
+			const target = e.currentTarget as HTMLElement;
+			cleanupEventListeners(target, e);
+		}
+
 		knobState.handleEnd();
 	};
 
 	/**
 	 * Handles the cancellation of a knob interaction
 	 */
-	const handleCancel = () => {
+	const handleCancel = (e?: PointerEvent | MouseEvent) => {
 		console.debug('[handleCancel] Cancelling interaction');
+
+		if (e) {
+			const target = e.currentTarget as HTMLElement;
+			cleanupEventListeners(target, e);
+		}
+
 		knobState.handleCancel();
+	};
+
+	/**
+	 * Prevents context menu from showing during drag
+	 */
+	const handleContextMenu = (e: Event) => {
+		e.preventDefault();
+		e.stopPropagation();
+
+		const target = e.currentTarget as HTMLElement;
+		cleanupEventListeners(target);
+
+		knobState.handleCancel();
+		return false;
+	};
+
+	/**
+	 * Cleans up all event listeners
+	 */
+	const cleanupEventListeners = (target: HTMLElement, e?: PointerEvent | MouseEvent) => {
+		if (window.PointerEvent && e) {
+			const pointerEvent = e as PointerEvent;
+			target.releasePointerCapture(pointerEvent.pointerId);
+			target.removeEventListener('pointermove', handleMove);
+			target.removeEventListener('pointerup', handleEnd);
+			target.removeEventListener('pointercancel', handleCancel);
+		} else {
+			window.removeEventListener('mousemove', handleMove);
+			window.removeEventListener('mouseup', handleEnd);
+		}
+
+		target.removeEventListener('contextmenu', handleContextMenu);
 	};
 
 	return {
