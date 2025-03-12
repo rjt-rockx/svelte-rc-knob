@@ -138,7 +138,7 @@ Path Structure:
 	}
 
 	const props: Props = $props();
-	console.info('[Range] Initializing with props:', props);
+	console.debug('[Range] Initializing with props:', props);
 
 	const {
 		color = 'currentColor',

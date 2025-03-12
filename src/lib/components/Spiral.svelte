@@ -167,7 +167,7 @@ Useful for multi-rotation knobs to show winding progression.
 	}
 
 	const props: Props = $props();
-	console.info('[Spiral] Initializing with props:', props);
+	console.debug('[Spiral] Initializing with props:', props);
 
 	const {
 		color = 'currentColor',

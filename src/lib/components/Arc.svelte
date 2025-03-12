@@ -37,7 +37,7 @@ Uses the Range component internally to render the arcs.
 	}
 
 	const props: Props = $props();
-	console.info('[Arc] Initializing with props:', props);
+	console.debug('[Arc] Initializing with props:', props);
 
 	const {
 		color = 'currentColor',

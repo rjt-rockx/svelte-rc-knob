@@ -104,7 +104,7 @@ Events:
 		children
 	}: Props = $props();
 
-	console.info('[Knob] Initializing with props:', {
+	console.debug('[Knob] Initializing with props:', {
 		min,
 		max,
 		value,

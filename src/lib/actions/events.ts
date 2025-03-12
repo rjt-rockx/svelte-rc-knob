@@ -84,7 +84,7 @@ export function createKnobEventHandlers(
 		interactiveHook?: InteractiveHook;
 	}
 ) {
-	console.info('[createKnobEventHandlers] Creating event handlers with config:', config);
+	console.debug('[createKnobEventHandlers] Creating event handlers with config:', config);
 
 	/**
 	 * Handles keyboard arrow key events for knob control

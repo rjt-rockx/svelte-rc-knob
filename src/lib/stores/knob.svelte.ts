@@ -44,7 +44,7 @@ export function createKnobState({
 	onEnd,
 	tracking
 }: KnobConfiguration) {
-	console.info('[createKnobState] Initializing with config:', {
+	console.debug('[createKnobState] Initializing with config:', {
 		min,
 		max,
 		multiRotation,

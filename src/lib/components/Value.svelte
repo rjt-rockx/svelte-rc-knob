@@ -35,7 +35,7 @@ Supports decimal places formatting and vertical positioning.
 	}
 
 	const props: Props = $props();
-	console.info('[Value] Initializing with props:', props);
+	console.debug('[Value] Initializing with props:', props);
 
 	const {
 		radius = knobContext.config.size / 2,

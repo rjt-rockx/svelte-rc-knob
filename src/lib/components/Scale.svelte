@@ -99,7 +99,7 @@ Tick Positioning:
 	const center = size / 2;
 
 	const props: Props = $props();
-	console.info('[Scale] Initializing with props:', props);
+	console.debug('[Scale] Initializing with props:', props);
 
 	const {
 		type = 'rect',

@@ -36,7 +36,7 @@
 	}
 
 	const props: Props = $props();
-	console.info('[Label] Initializing with props:', props);
+	console.debug('[Label] Initializing with props:', props);
 
 	const {
 		label,

@@ -58,7 +58,7 @@ Positioning:
 
 	const props: Props = $props();
 
-	console.info('[Pointer] Initializing with props:', props);
+	console.debug('[Pointer] Initializing with props:', props);
 
 	const knobContext: KnobContext = getContext('knob');
 	if (!knobContext) {
